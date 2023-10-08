@@ -171,7 +171,6 @@ class AtomeData:
             _LOGGER.debug("Perform Reconnect during %s", period_type)
             self.atome_client.login()
             (
-                retrieve_success,
                 period_usage,
                 period_price,
             ) = self._retrieve_period_usage(period_type)
