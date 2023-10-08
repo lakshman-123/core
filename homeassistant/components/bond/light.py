@@ -48,7 +48,6 @@ async def async_setup_entry(
     data: BondData = hass.data[DOMAIN][entry.entry_id]
     hub = data.hub
     bpup_subs = data.bpup_subs
-    platform = entity_platform.async_get_current_platform()
 
     platform = entity_platform.async_get_current_platform()
     for service in ENTITY_SERVICES:
