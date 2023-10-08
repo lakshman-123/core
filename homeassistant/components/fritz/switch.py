@@ -35,6 +35,8 @@ from .const import (
     WIFI_STANDARD,
     MeshRoles,
 )
+SETTING_UP_SWITCHES="Setting up %s switches"
+FRITZ_BOX_OPTIONS="The FRITZ!Box has no %s options"
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -44,12 +46,12 @@ async def _async_deflection_entities_list(
 ) -> list[FritzBoxDeflectionSwitch]:
     """Get list of deflection entities."""
 
-    _LOGGER.debug("Setting up %s switches", SWITCH_TYPE_DEFLECTION)
+    _LOGGER.debug(SETTING_UP_SWITCHES, SWITCH_TYPE_DEFLECTION)
 
     if (
         call_deflections := avm_wrapper.data.get("call_deflections")
     ) is None or not isinstance(call_deflections, dict):
-        _LOGGER.debug("The FRITZ!Box has no %s options", SWITCH_TYPE_DEFLECTION)
+        _LOGGER.debug(FRITZ_BOX_OPTIONS, SWITCH_TYPE_DEFLECTION)
         return []
 
     return [
@@ -63,16 +65,16 @@ async def _async_port_entities_list(
 ) -> list[FritzBoxPortSwitch]:
     """Get list of port forwarding entities."""
 
-    _LOGGER.debug("Setting up %s switches", SWITCH_TYPE_PORTFORWARD)
+    _LOGGER.debug(SETTING_UP_SWITCHES, SWITCH_TYPE_PORTFORWARD)
     entities_list: list[FritzBoxPortSwitch] = []
     if not avm_wrapper.device_conn_type:
-        _LOGGER.debug("The FRITZ!Box has no %s options", SWITCH_TYPE_PORTFORWARD)
+        _LOGGER.debug(FRITZ_BOX_OPTIONS, SWITCH_TYPE_PORTFORWARD)
         return []
 
     # Query port forwardings and setup a switch for each forward for the current device
     resp = await avm_wrapper.async_get_num_port_mapping(avm_wrapper.device_conn_type)
     if not resp:
-        _LOGGER.debug("The FRITZ!Box has no %s options", SWITCH_TYPE_DEFLECTION)
+        _LOGGER.debug(FRITZ_BOX_OPTIONS, SWITCH_TYPE_DEFLECTION)
         return []
 
     port_forwards_count: int = resp["NewPortMappingNumberOfEntries"]
@@ -90,7 +92,7 @@ async def _async_port_entities_list(
             avm_wrapper.device_conn_type, i
         )
         if not portmap:
-            _LOGGER.debug("The FRITZ!Box has no %s options", SWITCH_TYPE_DEFLECTION)
+            _LOGGER.debug(FRITZ_BOX_OPTIONS, SWITCH_TYPE_DEFLECTION)
             continue
 
         _LOGGER.debug(
@@ -125,7 +127,7 @@ async def _async_wifi_entities_list(
     avm_wrapper: AvmWrapper, device_friendly_name: str
 ) -> list[FritzBoxWifiSwitch]:
     """Get list of wifi entities."""
-    _LOGGER.debug("Setting up %s switches", SWITCH_TYPE_WIFINETWORK)
+    _LOGGER.debug(SETTING_UP_SWITCHES, SWITCH_TYPE_WIFINETWORK)
 
     #
     # https://avm.de/fileadmin/user_upload/Global/Service/Schnittstellen/wlanconfigSCPD.pdf
@@ -178,7 +180,7 @@ async def _async_profile_entities_list(
     data_fritz: FritzData,
 ) -> list[FritzBoxProfileSwitch]:
     """Add new tracker entities from the AVM device."""
-    _LOGGER.debug("Setting up %s switches", SWITCH_TYPE_PROFILE)
+    _LOGGER.debug(SETTING_UP_SWITCHES, SWITCH_TYPE_PROFILE)
 
     new_profiles: list[FritzBoxProfileSwitch] = []
 

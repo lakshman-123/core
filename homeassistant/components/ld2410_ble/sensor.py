@@ -19,6 +19,8 @@ from . import LD2410BLE, LD2410BLECoordinator
 from .const import DOMAIN
 from .models import LD2410BLEData
 
+TARGET_ENERGY="Target Energy"
+
 MOVING_TARGET_DISTANCE_DESCRIPTION = SensorEntityDescription(
     key="moving_target_distance",
     translation_key="moving_target_distance",
@@ -55,7 +57,7 @@ MOVING_TARGET_ENERGY_DESCRIPTION = SensorEntityDescription(
     device_class=None,
     entity_registry_enabled_default=False,
     entity_registry_visible_default=True,
-    native_unit_of_measurement="Target Energy",
+    native_unit_of_measurement=TARGET_ENERGY,
     state_class=SensorStateClass.MEASUREMENT,
 )
 
@@ -65,7 +67,7 @@ STATIC_TARGET_ENERGY_DESCRIPTION = SensorEntityDescription(
     device_class=None,
     entity_registry_enabled_default=False,
     entity_registry_visible_default=True,
-    native_unit_of_measurement="Target Energy",
+    native_unit_of_measurement=TARGET_ENERGY,
     state_class=SensorStateClass.MEASUREMENT,
 )
 
@@ -91,7 +93,7 @@ MOTION_ENERGY_GATES = [
         translation_key=f"motion_energy_gate_{i}",
         entity_category=EntityCategory.DIAGNOSTIC,
         entity_registry_enabled_default=False,
-        native_unit_of_measurement="Target Energy",
+        native_unit_of_measurement=TARGET_ENERGY,
     )
     for i in range(0, 9)
 ]
@@ -102,7 +104,7 @@ STATIC_ENERGY_GATES = [
         translation_key=f"static_energy_gate_{i}",
         entity_category=EntityCategory.DIAGNOSTIC,
         entity_registry_enabled_default=False,
-        native_unit_of_measurement="Target Energy",
+        native_unit_of_measurement=TARGET_ENERGY,
     )
     for i in range(0, 9)
 ]

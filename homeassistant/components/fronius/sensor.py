@@ -31,6 +31,8 @@ from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN, SOLAR_NET_DISCOVERY_NEW
+MDI_CURRENT_DC="mdi:current-dc"
+MDI_FLASH_OUTLINE="mdi:flash-outline"
 
 if TYPE_CHECKING:
     from . import FroniusSolarNet
@@ -141,7 +143,7 @@ INVERTER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
         device_class=SensorDeviceClass.CURRENT,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:current-dc",
+        icon=MDI_CURRENT_DC,
     ),
     FroniusSensorEntityDescription(
         key="current_dc_2",
@@ -149,7 +151,7 @@ INVERTER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
         device_class=SensorDeviceClass.CURRENT,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:current-dc",
+        icon=MDI_CURRENT_DC,
     ),
     FroniusSensorEntityDescription(
         key="power_ac",
@@ -172,7 +174,7 @@ INVERTER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:current-dc",
+        icon=MDI_CURRENT_DC,
     ),
     FroniusSensorEntityDescription(
         key="voltage_dc_2",
@@ -180,7 +182,7 @@ INVERTER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:current-dc",
+        icon=MDI_CURRENT_DC,
     ),
     # device status entities
     FroniusSensorEntityDescription(
@@ -302,7 +304,7 @@ METER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfApparentPower.VOLT_AMPERE,
         device_class=SensorDeviceClass.APPARENT_POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:flash-outline",
+        icon=MDI_FLASH_OUTLINE,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(
@@ -310,7 +312,7 @@ METER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfApparentPower.VOLT_AMPERE,
         device_class=SensorDeviceClass.APPARENT_POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:flash-outline",
+        icon=MDI_FLASH_OUTLINE,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(
@@ -318,7 +320,7 @@ METER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfApparentPower.VOLT_AMPERE,
         device_class=SensorDeviceClass.APPARENT_POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:flash-outline",
+        icon=MDI_FLASH_OUTLINE,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(
@@ -326,7 +328,7 @@ METER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfApparentPower.VOLT_AMPERE,
         device_class=SensorDeviceClass.APPARENT_POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:flash-outline",
+        icon=MDI_FLASH_OUTLINE,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(
@@ -357,7 +359,7 @@ METER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=POWER_VOLT_AMPERE_REACTIVE,
         device_class=SensorDeviceClass.REACTIVE_POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:flash-outline",
+        icon=MDI_FLASH_OUTLINE,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(
@@ -365,7 +367,7 @@ METER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=POWER_VOLT_AMPERE_REACTIVE,
         device_class=SensorDeviceClass.REACTIVE_POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:flash-outline",
+        icon=MDI_FLASH_OUTLINE,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(
@@ -373,7 +375,7 @@ METER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=POWER_VOLT_AMPERE_REACTIVE,
         device_class=SensorDeviceClass.REACTIVE_POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:flash-outline",
+        icon=MDI_FLASH_OUTLINE,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(
@@ -381,7 +383,7 @@ METER_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=POWER_VOLT_AMPERE_REACTIVE,
         device_class=SensorDeviceClass.REACTIVE_POWER,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:flash-outline",
+        icon=MDI_FLASH_OUTLINE,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(
@@ -574,21 +576,21 @@ STORAGE_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfElectricCurrent.AMPERE,
         device_class=SensorDeviceClass.CURRENT,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:current-dc",
+        icon=MDI_CURRENT_DC,
     ),
     FroniusSensorEntityDescription(
         key="voltage_dc",
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:current-dc",
+        icon=MDI_CURRENT_DC,
     ),
     FroniusSensorEntityDescription(
         key="voltage_dc_maximum_cell",
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:current-dc",
+        icon=MDI_CURRENT_DC,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(
@@ -596,7 +598,7 @@ STORAGE_ENTITY_DESCRIPTIONS: list[FroniusSensorEntityDescription] = [
         native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:current-dc",
+        icon=MDI_CURRENT_DC,
         entity_registry_enabled_default=False,
     ),
     FroniusSensorEntityDescription(

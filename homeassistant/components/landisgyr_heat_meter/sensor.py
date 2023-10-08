@@ -35,6 +35,9 @@ from homeassistant.helpers.update_coordinator import (
 from homeassistant.util import dt as dt_util
 
 from . import DOMAIN
+MDI_FIRE="mdi:fire"
+MDI_WATER_OUTLINE="mdi:water-outline"
+MDI_CLOCK_OUTLINE="mdi:clock-outline"
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -56,7 +59,7 @@ class HeatMeterSensorEntityDescription(
 HEAT_METER_SENSOR_TYPES = (
     HeatMeterSensorEntityDescription(
         key="heat_usage_mwh",
-        icon="mdi:fire",
+        icon=MDI_FIRE,
         name="Heat usage MWh",
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
@@ -65,7 +68,7 @@ HEAT_METER_SENSOR_TYPES = (
     ),
     HeatMeterSensorEntityDescription(
         key="volume_usage_m3",
-        icon="mdi:fire",
+        icon=MDI_FIRE,
         name="Volume usage",
         device_class=SensorDeviceClass.VOLUME,
         native_unit_of_measurement=UnitOfVolume.CUBIC_METERS,
@@ -74,7 +77,7 @@ HEAT_METER_SENSOR_TYPES = (
     ),
     HeatMeterSensorEntityDescription(
         key="heat_usage_gj",
-        icon="mdi:fire",
+        icon=MDI_FIRE,
         name="Heat usage GJ",
         native_unit_of_measurement=UnitOfEnergy.GIGA_JOULE,
         device_class=SensorDeviceClass.ENERGY,
@@ -83,7 +86,7 @@ HEAT_METER_SENSOR_TYPES = (
     ),
     HeatMeterSensorEntityDescription(
         key="heat_previous_year_mwh",
-        icon="mdi:fire",
+        icon=MDI_FIRE,
         name="Heat previous year MWh",
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
@@ -92,7 +95,7 @@ HEAT_METER_SENSOR_TYPES = (
     ),
     HeatMeterSensorEntityDescription(
         key="heat_previous_year_gj",
-        icon="mdi:fire",
+        icon=MDI_FIRE,
         name="Heat previous year GJ",
         native_unit_of_measurement=UnitOfEnergy.GIGA_JOULE,
         device_class=SensorDeviceClass.ENERGY,
@@ -101,7 +104,7 @@ HEAT_METER_SENSOR_TYPES = (
     ),
     HeatMeterSensorEntityDescription(
         key="volume_previous_year_m3",
-        icon="mdi:fire",
+        icon=MDI_FIRE,
         name="Volume usage previous year",
         device_class=SensorDeviceClass.VOLUME,
         native_unit_of_measurement=UnitOfVolume.CUBIC_METERS,
@@ -157,7 +160,7 @@ HEAT_METER_SENSOR_TYPES = (
         key="flowrate_max_m3ph",
         name="Flowrate max",
         native_unit_of_measurement=UnitOfVolumeFlowRate.CUBIC_METERS_PER_HOUR,
-        icon="mdi:water-outline",
+        icon=MDI_WATER_OUTLINE,
         entity_category=EntityCategory.DIAGNOSTIC,
         value_fn=lambda res: res.flowrate_max_m3ph,
     ),
@@ -165,7 +168,7 @@ HEAT_METER_SENSOR_TYPES = (
         key="flowrate_max_previous_year_m3ph",
         name="Flowrate max previous year",
         native_unit_of_measurement=UnitOfVolumeFlowRate.CUBIC_METERS_PER_HOUR,
-        icon="mdi:water-outline",
+        icon=MDI_WATER_OUTLINE,
         entity_category=EntityCategory.DIAGNOSTIC,
         value_fn=lambda res: res.flowrate_max_previous_year_m3ph,
     ),
@@ -236,21 +239,21 @@ HEAT_METER_SENSOR_TYPES = (
     HeatMeterSensorEntityDescription(
         key="yearly_set_day",
         name="Yearly set day",
-        icon="mdi:clock-outline",
+        icon=MDI_CLOCK_OUTLINE,
         entity_category=EntityCategory.DIAGNOSTIC,
         value_fn=lambda res: res.yearly_set_day,
     ),
     HeatMeterSensorEntityDescription(
         key="monthly_set_day",
         name="Monthly set day",
-        icon="mdi:clock-outline",
+        icon=MDI_CLOCK_OUTLINE,
         entity_category=EntityCategory.DIAGNOSTIC,
         value_fn=lambda res: res.monthly_set_day,
     ),
     HeatMeterSensorEntityDescription(
         key="meter_date_time",
         name="Meter date time",
-        icon="mdi:clock-outline",
+        icon=MDI_CLOCK_OUTLINE,
         device_class=SensorDeviceClass.TIMESTAMP,
         entity_category=EntityCategory.DIAGNOSTIC,
         value_fn=lambda res: dt_util.as_utc(res.meter_date_time)
@@ -261,7 +264,7 @@ HEAT_METER_SENSOR_TYPES = (
         key="measuring_range_m3ph",
         name="Measuring range",
         native_unit_of_measurement=UnitOfVolumeFlowRate.CUBIC_METERS_PER_HOUR,
-        icon="mdi:water-outline",
+        icon=MDI_WATER_OUTLINE,
         entity_category=EntityCategory.DIAGNOSTIC,
         value_fn=lambda res: res.measuring_range_m3ph,
     ),
