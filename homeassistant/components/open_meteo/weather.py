@@ -1,7 +1,11 @@
 """Support for Open-Meteo weather."""
-from __future__ import annotations
+from _future_ import annotations
 
 from open_meteo import Forecast as OpenMeteoForecast
+import logging
+
+LOGGER = logging.getLogger(name_)
+
 
 from homeassistant.components.weather import (
     Forecast,
@@ -40,14 +44,14 @@ class OpenMeteoWeatherEntity(
     _attr_native_wind_speed_unit = UnitOfSpeed.KILOMETERS_PER_HOUR
     _attr_supported_features = WeatherEntityFeature.FORECAST_DAILY
 
-    def __init__(
+    def _init_(
         self,
         *,
         entry: ConfigEntry,
         coordinator: DataUpdateCoordinator[OpenMeteoForecast],
     ) -> None:
         """Initialize Open-Meteo weather entity."""
-        super().__init__(coordinator=coordinator)
+        super()._init_(coordinator=coordinator)
         self._attr_unique_id = entry.entry_id
 
         self._attr_device_info = DeviceInfo(
@@ -79,6 +83,33 @@ class OpenMeteoWeatherEntity(
         if not self.coordinator.data.current_weather:
             return None
         return self.coordinator.data.current_weather.wind_speed
+
+    @property
+    def wind_chill(self) -> float | None:
+        """Return the wind chill index."""
+        temperature = self.native_temperature
+        wind_speed = self.native_wind_speed
+        if temperature is None or wind_speed is None:
+            return None
+        wind_chill = (
+            13.12
+            + 0.6215 * temperature
+            - 11.37 * (wind_speed**0.16)
+            + 0.3965 * temperature * (wind_speed**0.16)
+        )
+        global X, Y
+        X = temperature - wind_chill
+        print("temperature is ", temperature, ",feels like", X)
+
+        return wind_chill
+
+    @property
+    def device_state_attributes(self):
+        """Return the state attributes."""
+        return {
+            "wind_chill": self.wind_chill
+            # Add other attributes if needed
+        }
 
     @property
     def wind_bearing(self) -> float | str | None:
@@ -119,6 +150,11 @@ class OpenMeteoWeatherEntity(
 
             if daily.wind_speed_10m_max is not None:
                 forecast["native_wind_speed"] = daily.wind_speed_10m_max[index]
+            if (
+                daily.wind_speed_10m_max is not None
+                and daily.temperature_2m_max is not None
+            ):
+                forecast["wind_chill"] = self.wind_chill
 
             forecasts.append(forecast)
 
