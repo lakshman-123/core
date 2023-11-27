@@ -1,10 +1,11 @@
 """Support for Open-Meteo weather."""
-from _future_ import annotations
+from __future__ import annotations
 
-from open_meteo import Forecast as OpenMeteoForecast
 import logging
 
-LOGGER = logging.getLogger(name_)
+from open_meteo import Forecast as OpenMeteoForecast
+
+_LOGGER = logging.getLogger(__name__)
 
 
 from homeassistant.components.weather import (
@@ -44,14 +45,14 @@ class OpenMeteoWeatherEntity(
     _attr_native_wind_speed_unit = UnitOfSpeed.KILOMETERS_PER_HOUR
     _attr_supported_features = WeatherEntityFeature.FORECAST_DAILY
 
-    def _init_(
+    def __init__(
         self,
         *,
         entry: ConfigEntry,
         coordinator: DataUpdateCoordinator[OpenMeteoForecast],
     ) -> None:
         """Initialize Open-Meteo weather entity."""
-        super()._init_(coordinator=coordinator)
+        super().__init__(coordinator=coordinator)
         self._attr_unique_id = entry.entry_id
 
         self._attr_device_info = DeviceInfo(
@@ -97,9 +98,6 @@ class OpenMeteoWeatherEntity(
             - 11.37 * (wind_speed**0.16)
             + 0.3965 * temperature * (wind_speed**0.16)
         )
-        global X, Y
-        X = temperature - wind_chill
-        print("temperature is ", temperature, ",feels like", X)
 
         return wind_chill
 
@@ -150,11 +148,6 @@ class OpenMeteoWeatherEntity(
 
             if daily.wind_speed_10m_max is not None:
                 forecast["native_wind_speed"] = daily.wind_speed_10m_max[index]
-            if (
-                daily.wind_speed_10m_max is not None
-                and daily.temperature_2m_max is not None
-            ):
-                forecast["wind_chill"] = self.wind_chill
 
             forecasts.append(forecast)
 

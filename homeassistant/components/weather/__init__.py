@@ -75,6 +75,7 @@ from .const import (  # noqa: F401
     ATTR_WEATHER_VISIBILITY,
     ATTR_WEATHER_VISIBILITY_UNIT,
     ATTR_WEATHER_WIND_BEARING,
+    ATTR_WEATHER_WIND_CHILL,
     ATTR_WEATHER_WIND_GUST_SPEED,
     ATTR_WEATHER_WIND_SPEED,
     ATTR_WEATHER_WIND_SPEED_UNIT,
@@ -120,6 +121,7 @@ ATTR_FORECAST_NATIVE_TEMP_LOW: Final = "native_templow"
 ATTR_FORECAST_TEMP_LOW: Final = "templow"
 ATTR_FORECAST_TIME: Final = "datetime"
 ATTR_FORECAST_WIND_BEARING: Final = "wind_bearing"
+ATTR_FORECAST_WIND_CHILL: Final = "wind_chill"
 ATTR_FORECAST_NATIVE_WIND_GUST_SPEED: Final = "native_wind_gust_speed"
 ATTR_FORECAST_WIND_GUST_SPEED: Final = "wind_gust_speed"
 ATTR_FORECAST_NATIVE_WIND_SPEED: Final = "native_wind_speed"
@@ -197,6 +199,7 @@ class Forecast(TypedDict, total=False):
     templow: None
     native_apparent_temperature: float | None
     wind_bearing: float | str | None
+    wind_chill: float | str | None
     native_wind_gust_speed: float | None
     native_wind_speed: float | None
     wind_speed: None
@@ -276,7 +279,7 @@ class WeatherEntity(Entity, PostInit):
     _attr_precision: float
     _attr_state: None = None
     _attr_wind_bearing: float | str | None = None
-
+    _attr_wind_chill: float | str | None = None
     _attr_native_pressure: float | None = None
     _attr_native_pressure_unit: str | None = None
     _attr_native_apparent_temperature: float | None = None
@@ -499,6 +502,11 @@ class WeatherEntity(Entity, PostInit):
         return self._attr_wind_bearing
 
     @property
+    def wind_chill(self) -> float | str | None:
+        """Return the wind chill."""
+        return self._attr_wind_chill
+
+    @property
     def ozone(self) -> float | None:
         """Return the ozone level."""
         return self._attr_ozone
@@ -688,6 +696,9 @@ class WeatherEntity(Entity, PostInit):
 
         if (wind_bearing := self.wind_bearing) is not None:
             data[ATTR_WEATHER_WIND_BEARING] = wind_bearing
+
+        if (wind_chill := self.wind_chill) is not None:
+            data[ATTR_WEATHER_WIND_CHILL] = wind_chill
 
         if (wind_gust_speed := self.native_wind_gust_speed) is not None:
             from_unit = self.native_wind_speed_unit or self._default_wind_speed_unit
